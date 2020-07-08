@@ -1,0 +1,12 @@
+.inputBar {
+  width: 100%;
+  border: 1px solid rgb(207, 103, 55);
+  border-radius: 0.5rem;
+  color: rgb(102, 120, 139);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  padding: 0.5rem 1rem;
+  margin: 2rem 0;
+  box-shadow: 0 5px 5px rgb(93, 84, 84);
+  outline: 0;
+}

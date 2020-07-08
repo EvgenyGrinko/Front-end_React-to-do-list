@@ -1,0 +1,10 @@
+.app {
+  width: 100%;
+}
+
+.container {
+  margin: 5% 0 0 5%;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  width: 30rem;
+}

@@ -1,0 +1,46 @@
+.list {
+  height: 25rem;
+  overflow: auto;
+  background-color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.list__item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(204, 202, 202);
+
+  height: 3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 2rem;
+  margin: 0.5rem 1rem 0 1rem;
+  padding: 0 1rem;
+  position: relative;
+}
+.list__item_text {
+  width: 25rem;
+}
+.list__item_checkBtn {
+  float: left;
+  width: 1rem;
+  height: 1rem;
+  background: url(./trash-bin.svg) center no-repeat;
+  background-size: 1rem 1rem;
+  border: none;
+  cursor: pointer;
+  outline: 0;
+}
+
+.notCompletedItems {
+  color: rgb(207, 103, 55);
+}
+
+.completedItems {
+  color: rgb(45, 139, 106);
+}
+
+.hideItem {
+  display: none;
+}
