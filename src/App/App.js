@@ -1,20 +1,16 @@
 import React, { Component } from "react";
-import ToDoList from "../ToDoList/ToDoList";
-import SearchBar from "../SearchBar/SearchBar";
-import NavBar from "../NavBar/NavBar";
-import AddItemForm from "../AddItemForm/AddItemForm";
+import ToDoList from "../components/ToDoList/ToDoList";
+import SearchBar from "../components/SearchBar/SearchBar";
+import NavBar from "../components/NavBar/NavBar";
+import AddItemForm from "../components/AddItemForm/AddItemForm";
 import styles from "./App.module.css";
 
 class App extends Component {
   state = {
     items: [],
-    id: 0,
-    // displayedArea: "allItems",
-    focusedItems: {
-      allItems: true,
-      notCompletedItems: false,
-      completedItems: false,
-    },
+    notCompletedItems: false,
+    completedItems: false,
+    searchedWord: "",
   };
 
   onChecked = (id) => {
@@ -34,37 +30,25 @@ class App extends Component {
     this.setState({ items });
   };
 
-  onAdd = (newItem) => {
-    this.setState({ id: this.state.id + 1 });
+  onAdd = (text) => {
     const items = [
       ...this.state.items,
-      { content: newItem, id: this.state.id, completed: false, display: true },
+      { content: text, id: Math.random(), completed: false, display: true },
     ];
     this.setState({ items });
   };
 
-  //BAD CODE
   showSpecificItems = (area) => {
-    const focused = Object.entries(this.state.focusedItems).map(
-      ([button, state]) => {
-        return button === area ? [button, true] : [button, false];
-      }
-    );
-    this.setState({ focusedItems: Object.fromEntries(focused) });
-
     const items = this.state.items.map((item) => {
       switch (area) {
         case "allItems":
           item.display = true;
-          this.setState({ displayedArea: area });
           return item;
         case "notCompletedItems":
           item.completed ? (item.display = false) : (item.display = true);
-          this.setState({ displayedArea: area });
           return item;
         case "completedItems":
           item.completed ? (item.display = true) : (item.display = false);
-          this.setState({ displayedArea: area });
           return item;
         default:
           return;
@@ -74,49 +58,40 @@ class App extends Component {
   };
 
   onSearch = (value) => {
-    const pattern = new RegExp(`^.*${value}.*$`, "i");
-    // item.content.toLowerCase().includes(value.toLowerCase())
-
-    const items = this.state.items.filter((item) => {
-      if (this.state.focusedItems.allItems) return pattern.test(item.content);
-      if (this.state.focusedItems.notCompletedItems)
-        return !item.completed && pattern.test(item.content);
-      else return item.completed && pattern.test(item.content);
-    });
-    this.setState({ items });
-
-    //     item.display = true;
-    //     return item;
-    //   }
-    // this.state.focusedItems.notCompletedItems && !item.completed
-    //   ? (item.display = true)
-    //   : (item.display = false);
-
-    // this.state.focusedItems.completedItems && item.completed
-    //   ? (item.display = true)
-    //   : (item.display = false);
-    //   return item;
-
-    // this.setState({ items });
-
-    // const items = this.state.items.map((item)=>{
-    //   (item.)
-    // })
+    this.setState({ searchedWord: value });
   };
+
+  //Function to compare "item.content" and search
+  compare = (longStr, shortStr) =>
+    longStr.toLowerCase().includes(shortStr.toLowerCase());
+
   render() {
+    const {
+      items,
+      searchedWord,
+      notCompletedItems,
+      completedItems,
+    } = this.state;
+
+    const filteredItems = items.filter((item) => {
+      if (!notCompletedItems && !completedItems)
+        return item.content.toLowerCase().includes(searchedWord.toLowerCase());
+      if (notCompletedItems && !item.completed)
+        return item.content.toLowerCase().includes(searchedWord.toLowerCase());
+      if (completedItems && item.completed)
+        return item.content.toLowerCase().includes(searchedWord.toLowerCase());
+    });
+
     return (
       <div className={styles.app}>
         <div className={styles.container}>
           <SearchBar onSearch={this.onSearch} />
           <ToDoList
-            items={this.state.items}
+            items={filteredItems}
             onChecked={this.onChecked}
             onDelete={this.onDelete}
           />
-          <NavBar
-            showSpecificItems={this.showSpecificItems}
-            focusedItems={this.state.focusedItems}
-          />
+          <NavBar showSpecificItems={this.showSpecificItems} />
           <AddItemForm onAdd={this.onAdd} />
         </div>
       </div>

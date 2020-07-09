@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styles from "./AddItemForm.module.css";
 import inputStyle from "../SearchBar/SearchBar.module.css";
 
 export default class AddItemForm extends Component {
@@ -8,7 +7,7 @@ export default class AddItemForm extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.onAdd(this.state.content);
+    if (this.state.content) this.props.onAdd(this.state.content);
     this.setState({ content: "" });
   };
   handleChange = (event) => {

@@ -1,0 +1,7 @@
+.list {
+  height: 25rem;
+  overflow: auto;
+  background-color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+}

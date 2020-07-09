@@ -7,7 +7,6 @@ export default class SearchBar extends Component {
     return (
       <div>
         <input
-          id="searchElem"
           type="text"
           className={styles.inputBar}
           placeholder="Search"

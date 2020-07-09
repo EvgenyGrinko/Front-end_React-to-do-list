@@ -1,10 +1,13 @@
 .app {
   width: 100%;
+  background: url(./backgr-img.jpg) center no-repeat;
+  background-size: cover;
+  min-height: 100vh;
 }
 
 .container {
-  margin: 5% 0 0 5%;
+  padding: 5% 0 0 10%;
   border: 1px solid transparent;
   border-radius: 0.5rem;
-  width: 30rem;
+  width: 40rem;
 }
