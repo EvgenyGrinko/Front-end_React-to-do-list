@@ -1,24 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import styles from "./Button.module.css";
 
-export default class Button extends Component {
-  render() {
-    const { focusedArea, changeFocus } = this.props;
-    const { id, text, props } = this.props;
-    const handleClick = (event) => {
-      changeFocus(id);
-      props.showSpecificItems(event.target.id);
-    };
-    return (
-      <button
-        id={id}
-        onClick={handleClick}
-        className={`${styles.btn} ${styles[id]} ${
-          focusedArea === this.props.id ? styles.focused : ""
-        }`}
-      >
-        {text}
-      </button>
-    );
-  }
+export default function Button(props) {
+  const handleClick = (event) => {
+    props.changeFocus(props.id);
+    props.showSpecificItems(event.target.id);
+  };
+  return (
+    <button
+      id={props.id}
+      onClick={handleClick}
+      className={`${styles.btn} ${styles[props.id]} ${
+        props.focusedArea === props.id ? styles.focused : ""
+      }`}
+    >
+      {props.text}
+    </button>
+  );
 }

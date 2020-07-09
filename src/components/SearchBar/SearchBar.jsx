@@ -1,20 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import styles from "./SearchBar.module.css";
 
-export default class SearchBar extends Component {
-  render() {
-    const { onSearch } = this.props;
-    return (
-      <div>
-        <input
-          type="text"
-          className={styles.inputBar}
-          placeholder="Search"
-          onChange={(event) => {
-            onSearch(event.target.value);
-          }}
-        />
-      </div>
-    );
-  }
+export default function SearchBar(props) {
+  return (
+    <div>
+      <input
+        type="text"
+        className={styles.inputBar}
+        placeholder="Search"
+        onChange={(event) => {
+          props.onSearch(event.target.value);
+        }}
+      />
+    </div>
+  );
 }

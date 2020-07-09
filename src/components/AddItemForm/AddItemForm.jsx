@@ -1,37 +1,29 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import inputStyle from "../SearchBar/SearchBar.module.css";
 
-export default class AddItemForm extends Component {
-  state = {
-    content: "",
-  };
-  handleSubmit = (event) => {
+export default function AddItemForm(props) {
+  const [content, setContent] = useState("");
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    if (this.state.content) this.props.onAdd(this.state.content);
-    this.setState({ content: "" });
+    if (content) props.onAdd(content);
+    setContent("");
   };
-  handleChange = (event) => {
-    this.setState({ content: event.target.value });
+  const handleChange = (event) => {
+    setContent(event.target.value);
   };
-  render() {
-    return (
-      <div>
-        <form
-          onSubmit={this.handleSubmit}
-          action="#"
-          type="submit"
-          id="submit-form"
-        >
-          <input
-            id="addElem"
-            className={inputStyle.inputBar}
-            type="text"
-            placeholder="Add new item"
-            onChange={this.handleChange}
-            value={this.state.content}
-          />
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <form onSubmit={handleSubmit} action="#" type="submit" id="submit-form">
+        <input
+          id="addElem"
+          className={inputStyle.inputBar}
+          type="text"
+          placeholder="Add new item"
+          onChange={handleChange}
+          value={content}
+        />
+      </form>
+    </div>
+  );
 }
