@@ -1,10 +1,14 @@
 import React from "react";
 import styles from "./Button.module.css";
+import {showItemsForCurrentArea} from "../../../redux/actions/index";
+import {connect} from "react-redux";
 
-export default function Button(props) {
+const actionCreators = {showItemsForCurrentArea}
+
+function Button(props) {
   const handleClick = (event) => {
     props.changeFocus(props.id);
-    props.showSpecificItems(event.target.id);
+    props.showItemsForCurrentArea(event.target.id);
   };
   return (
     <button
@@ -18,3 +22,5 @@ export default function Button(props) {
     </button>
   );
 }
+
+export default connect(null, actionCreators)(Button)

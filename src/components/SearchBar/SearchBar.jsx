@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "./SearchBar.module.css";
+import {connect} from "react-redux";
+import {setSearchedWord} from "../../redux/actions/index"
 
-export default function SearchBar(props) {
+const actionCreators = {setSearchedWord}
+
+function SearchBar(props) {
   return (
     <div>
       <input
@@ -9,9 +13,11 @@ export default function SearchBar(props) {
         className={styles.inputBar}
         placeholder="Search"
         onChange={(event) => {
-          props.onSearch(event.target.value);
+          props.setSearchedWord(event.target.value);
         }}
       />
     </div>
   );
 }
+
+export default connect(null, actionCreators)(SearchBar)
